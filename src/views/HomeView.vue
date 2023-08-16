@@ -1,3 +1,1 @@
-<template>
-    <h1>Test</h1>
-</template>
+<template><span></span></template>
