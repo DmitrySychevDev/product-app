@@ -3,4 +3,8 @@
   border-radius: 10px;
   background: #4ea3d2;
   color: #fff;
+  &:hover {
+    background: #d6d6d6;
+    color: #4ea3d2;
+  }
 }
