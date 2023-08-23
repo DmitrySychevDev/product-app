@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import ProductCard from '@/components/ProductCard/ProductCard.vue'
+
+import styles from './HomePage.module.scss'
+
 import productPreview from '@/assets/images/product1.png'
 
 const products = [
@@ -79,7 +82,7 @@ const products = [
 </script>
 
 <template>
-  <div class="cards">
+  <div :class="styles.cards">
     <product-card
       v-for="product in products"
       v-bind:description="product.description"
@@ -91,5 +94,3 @@ const products = [
     />
   </div>
 </template>
-
-<style src="./Home.module.scss" module></style>
