@@ -15,7 +15,7 @@ onMounted(async () => {
   headerMenu.value = categories.map((category) => {
     return {
       label: category,
-      href: `/categories/${category}`
+      href: `/category/${category}`
     }
   })
 })

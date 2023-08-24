@@ -1,22 +1,23 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import request from '@/utils/request'
 
 import ProductCard from '@/components/ProductCard/ProductCard.vue'
 
-import styles from './HomePage.module.scss'
-
+import styles from './ProductsListPage.module.scss'
 import type { Product } from '@/types/Product'
 
 interface ProductItem extends Product {
   id: number
 }
-
+const route = useRoute()
 const products = ref<ProductItem[]>([])
+const category = route.params.category
 
 onMounted(() => {
-  request('GET', '/products').then((data) => {
-    products.value = data as ProductItem
+  request('GET', `/products${category ? `/category/${category}` : ''}`).then((data) => {
+    products.value = data as ProductItem[]
   })
 })
 </script>
