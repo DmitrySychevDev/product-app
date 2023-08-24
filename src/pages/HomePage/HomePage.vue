@@ -6,7 +6,6 @@ import ProductCard from '@/components/ProductCard/ProductCard.vue'
 
 import styles from './HomePage.module.scss'
 
-import productPreview from '@/assets/images/product1.png'
 import type { Product } from '@/types/Product'
 
 interface ProductItem extends Product {
@@ -17,7 +16,7 @@ const products = ref<ProductItem[]>([])
 
 onMounted(() => {
   request('GET', '/products').then((data) => {
-    products.value = data.data as ProductItem
+    products.value = data as ProductItem
   })
 })
 </script>

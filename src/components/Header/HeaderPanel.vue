@@ -1,23 +1,36 @@
 <script lang="ts" setup>
 import styles from './Header.module.scss'
+import { ref, onMounted } from 'vue'
+import request from '@/utils/request'
 
-interface HeaderMenuData {
-  menuItemsList: {
-    label: string
-    href: string
-  }[]
+interface MenuItem {
+  label: string
+  href: string
 }
-const props = defineProps<HeaderMenuData>()
+
+const headerMenu = ref<MenuItem[]>([])
+
+onMounted(async () => {
+  const categories: string[] = await request<undefined, string[]>('GET', '/products/categories')
+  headerMenu.value = categories.map((category) => {
+    return {
+      label: category,
+      href: `/categories/${category}`
+    }
+  })
+})
 </script>
 
 <template>
   <header :class="styles.header">
     <div :class="styles['header__logo']">
-      <img src="@/assets/images/logo.svg" />
+      <a href="/">
+        <img src="@/assets/images/logo.svg" />
+      </a>
     </div>
     <div :class="styles['header__links']">
       <div
-        v-for="item in props.menuItemsList"
+        v-for="item in headerMenu"
         v-bind:key="item.href"
         :class="styles['header__link-wrapper']"
       >
