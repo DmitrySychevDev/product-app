@@ -2,18 +2,9 @@
 import styles from './ProductCard.module.scss'
 import CustomButton from '@/components/Button/CustomButton.vue'
 
-interface ProductProps {
-  price: number
-  rating: {
-    rate: number
-    count: number
-  }
-  description: string
-  title: string
-  image: string
-}
+import type { Product } from '@/types/Product'
 
-const props = defineProps<ProductProps>()
+const props = defineProps<Product>()
 
 const buttonHandler = () => {
   console.log('test')
@@ -29,7 +20,11 @@ const buttonHandler = () => {
         <div :class="styles['product-card-title__price']">{{ props.price }} $</div>
       </div>
       <p :class="styles['product-card__description']">
-        {{ props.description }}
+        {{
+          props.description.length > 113
+            ? `${props.description.substring(0, 113)} ...`
+            : props.description
+        }}
       </p>
       <div :class="styles['product-card__action-block']">
         <div :class="styles['product-card__action-block__rating']">
@@ -38,9 +33,9 @@ const buttonHandler = () => {
               <div>
                 <img src="@/assets/images/star.svg" />
               </div>
-              <p>{{ props.rating.rate }}</p>
+              <p>{{ props.rating?.rate }}</p>
             </div>
-            <p>{{ props.rating.count }} оценок</p>
+            <p>{{ props.rating?.count }} оценок</p>
           </div>
         </div>
         <div>

@@ -1,84 +1,25 @@
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+import request from '@/utils/request'
+
 import ProductCard from '@/components/ProductCard/ProductCard.vue'
 
 import styles from './HomePage.module.scss'
 
 import productPreview from '@/assets/images/product1.png'
+import type { Product } from '@/types/Product'
 
-const products = [
-  {
-    id: 1,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  },
-  {
-    id: 2,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  },
-  {
-    id: 3,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  },
-  {
-    id: 4,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  },
-  {
-    id: 5,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  },
-  {
-    id: 6,
-    price: 22.3,
-    rating: {
-      rate: 4.3,
-      count: 200
-    },
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-butto',
-    category: 'clothes',
-    title: 'Футбока Красивая',
-    image: productPreview
-  }
-]
+interface ProductItem extends Product {
+  id: number
+}
+
+const products = ref<ProductItem[]>([])
+
+onMounted(() => {
+  request('GET', '/products').then((data) => {
+    products.value = data.data as ProductItem
+  })
+})
 </script>
 
 <template>
